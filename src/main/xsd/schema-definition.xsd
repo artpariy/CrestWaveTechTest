@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="2.1">
+  <xs:element name="Envelope" type="EnvelopeType"/>
+  <xs:complexType name="accountType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="type" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="fieldType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="id" use="optional"/>
+        <xs:attribute type="xs:string" name="value">
+          <xs:annotation>
+            <xs:appinfo>
+              <jxb:property name="valueAttribute"/>
+            </xs:appinfo>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="sendPaymentType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="token"/>
+      <xs:element type="xs:string" name="cardNumber"/>
+      <xs:element type="xs:string" name="requestId"/>
+      <xs:element type="xs:string" name="amount"/>
+      <xs:element type="xs:string" name="currency"/>
+      <xs:element type="accountType" name="account" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="xs:string" name="page"/>
+      <xs:element type="fieldType" name="field" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BodyType">
+    <xs:sequence>
+      <xs:element type="sendPaymentType" name="sendPayment"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EnvelopeType">
+    <xs:sequence>
+      <xs:element type="BodyType" name="Body"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

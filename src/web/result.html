@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+    table, th, td {
+    border: 1px solid black;
+                        }
+    </style>
+    <title>Result page</title>
+</head>
+<body>
+<table style="width:100%">
+    <tr>
+        <th>Function</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>XML parser</td>
+        <td id="step1">-</td>
+    </tr>
+    <tr>
+        <td>JSON converter</td>
+        <td id="step2">-</td>
+    </tr>
+    <tr>
+        <td>TCP connection</td>
+        <td id="step3">-</td>
+    </tr>
+
+</table>
+
+<script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const stepParam = urlParams.get('step');
+        const errorParam = urlParams.get('error');
+        var steps = document.querySelectorAll('[id^="step"]');
+        if (stepParam) {
+            for (step of steps) {
+                    if (step.id == "step" + stepParam) {
+                        step.innerHTML = errorParam;
+                        break;
+                    } else {
+                        step.innerHTML = "OK";
+                    }
+            }
+        } else {
+               for (const step of steps) {
+                    step.innerHTML = "OK";
+               }
+        }
+</script>
+
+</body>
+
+
+</html>
